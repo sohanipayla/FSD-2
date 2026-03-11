@@ -1,0 +1,18 @@
+<!-- write one JSON string with date property yyyy-mm-dd and print data in Indian Standard Time on button click -->
+ <html>
+    <head>
+        <script>
+            const obj = JSON.parse('{"name":"xyz","age":18,"dob":"1997-03-14"}');
+            console.log(obj);
+            let a = new Date(obj.dob);
+            console.log(a);
+            function f1(){
+                let b = new Date(obj.dob);
+                document.write(b);
+            }
+        </script>
+    </head>
+    <body>
+      <button onclick="f1()">click</button>
+    </body>
+ </html>
