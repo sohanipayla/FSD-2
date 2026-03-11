@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <script>
+            const a={
+                'Datastructures':
+                [{
+                    "Name":"Tree",
+                    "Course":"intro",
+                    "Content":["1","B","C"]
+                },
+                {
+                    "Name":"Tree1",
+                    "Course":"intro1",
+                    "Content":["1","B","C","D"]
+                 }],
+                 "XYZ":{
+                    "Name":"Graphics",
+                    "Topic":["BSF","CDF"]
+                 }
+            }
+            console.log(a.Datastructures[1].Name); //Tree1
+             console.log(a.Datastructures[0].Name);//Tree
+             console.log(a.XYZ.Name); //Graphics
+            console.log(a.XYZ.Topic); //["BSF","CDF"]
+            console.log(a.XYZ.Topic[0]); //BSF
+            console.log(a.Datastructures[1]); //{Name: 'Tree1', Course: 'intro1', Content: ["1","B","C","D"]}
+        </script>
+    </head>
+</html>

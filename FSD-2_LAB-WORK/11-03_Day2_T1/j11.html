@@ -1,0 +1,24 @@
+<!-- Consider below JSON object and fetch values using for loop(for in and for of) -->
+ <html>
+    <head>
+        <script>
+            let sub={
+                "FSD":[{
+                    "Topic":"HTML",
+                    "Course":"Beginner",
+                    "Content":["tags","table","python"]
+                },
+                {
+                    "Topic":"CSS",
+                    "Course":"Beginner",
+                    "Content":["style","color"]
+                }]
+            }
+            for(x in sub.FSD){    //for in -->index
+                for(y in sub.FSD[x]){
+                    console.log(sub.FSD[x][y]+"<br>");
+                }
+            }
+        </script>
+    </head>
+ </html>

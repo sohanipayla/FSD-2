@@ -1,0 +1,17 @@
+<!-- write a JSON object which content array of three objects each object contains two properties a name and age now sort
+  an array values by age in descending order print name and age on console per descending order -->
+<html>
+    <head>
+        <script>
+            let person=[
+                {"Name":"Sohani","age":19},
+                {"Name":"Jehan","age":20},
+                {"Name":"Krish","age":21}
+            ]
+            person.sort((a,b)=>b.age-a.age);
+            person.forEach(p=>{
+                console.log(p.Name+":"+p.age);
+            })
+        </script>
+    </head>
+</html>

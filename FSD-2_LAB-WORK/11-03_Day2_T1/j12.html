@@ -1,0 +1,25 @@
+<!-- Consider below JSON object and fetch values using for loop(for in and for of) -->
+ <html>
+    <head>
+        <script>
+            let sub={
+                "FSD":[{
+                    "Topic":"HTML",
+                    "Course":"Beginner",
+                    "Content":["tags","table","python"]
+                },
+                {
+                    "Topic":"CSS",
+                    "Course":"Beginner",
+                    "Content":["style","color"]
+                }]
+            }
+            for(x1 of sub.FSD){    //for of -->values
+                document.write(x1.Topic+"<br>");
+            }
+            for(item of x1.Content){
+                document.write(item+"<br>");
+            }
+        </script>
+    </head>
+ </html>

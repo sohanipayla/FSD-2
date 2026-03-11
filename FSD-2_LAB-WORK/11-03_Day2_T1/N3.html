@@ -1,0 +1,18 @@
+<!-- Initialize two variables and increment both the variables each time and display the addition of the variable at interval of 1 Second -->
+<html>
+    <head></head>
+    <body>
+        <p id="p1">
+            <script>
+                let a=2,b=3;
+                setInterval(()=>{
+                   document.getElementById("p1").innerHTML=++a + ++b;
+                },1000)
+                // Second method in innerHTML
+                // a++;
+                // b++;
+                // console.log(a+b);
+            </script>
+        </p>
+    </body>
+</html>

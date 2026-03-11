@@ -1,0 +1,14 @@
+<!-- input=["ABC","DEF","Employee","Manager"]     output={"ABC":"Manager"}-->
+ <html>
+    <head>
+        <script>
+            function f1(arr){
+                let result={};
+                let first=arr[0];
+                result[first]=arr[arr.length-1];
+                return result;
+            }
+            let input=["ABC","DEF","Employee","Manager"];
+            console.log(f1(input));
+        </script>
+ </html>
