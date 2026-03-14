@@ -1,0 +1,37 @@
+<html></html>
+    <head>
+    </head>
+    <body>
+        <p id="p1">Hello Everyone</p>
+        <button onclick="inc()">Increase</button>
+        <button onclick="dec()">Decrease</button>
+        <button onclick="stp()">Stop</button>
+        <script>
+            font=50;
+            function fun(font){
+                document.getElementById("p1").style.fontSize=font
+            }
+            function inc(){
+             test= setInterval(()=>
+             {
+                if(font<200)
+             {
+                fun(++font);
+             }
+             },100)
+            }
+            function dec(){
+             test= setInterval(()=>
+             {
+                if(font>20)
+             {
+                fun(--font);
+             }
+             },100)
+            }
+            function stp(){
+                clearInterval(test);
+            }
+        </script>
+    </body>
+ </html>

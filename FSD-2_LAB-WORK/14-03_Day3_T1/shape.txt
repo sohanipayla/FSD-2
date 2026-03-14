@@ -1,0 +1,1 @@
+{"shapes":[{"type":"square","side":10,"perimeter":40},{"type":"circle","diameter":14,"perimeter":43.982}]}
