@@ -1,0 +1,21 @@
+<html>
+<head>
+    <title>First And Last Example</title>
+</head>
+<body>
+<script>
+function FirstAndLast(arr) {
+    let result = {};
+    // first element as key
+    let first = arr[0];
+    // last element as value
+    let last = arr[arr.length - 1];
+    result[first] = last;
+    return result;
+}
+let data = ['ABC', 'DEF', 'Employee', 'Manager'];
+let output = FirstAndLast(data);
+console.log(output);
+</script>
+</body>
+</html>

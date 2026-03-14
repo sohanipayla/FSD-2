@@ -1,0 +1,22 @@
+<html>
+<head>
+<title>Person Details</title>
+</head>
+<body>
+<h3>Person Information</h3>
+<button onclick="showDOB()">Birthdate</button>
+<p id="result"></p>
+<script>
+let person = {
+  "name": "Rahul",
+  "DOB": "15-08-2000",
+  "age": 24,
+  "birthplace": "Ahmedabad"
+};
+function showDOB() {
+  console.log("Birthdate:", person.DOB);
+  document.getElementById("result").innerHTML = "Birthdate: " + person.DOB;
+}
+</script>
+</body>
+</html>

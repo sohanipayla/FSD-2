@@ -1,0 +1,27 @@
+<html>
+<body>
+<script>
+const a = {
+ "Name" : "Ramesh",
+ "Subects" : ["Maths", "Scence" , "chemistry"],
+ "Grade" : {"Type" : "marks","Total" : [88,90,99,87]},
+ "Range" : {"opt" : "100", "type" : ["secure","subject","class"]},
+ "achive" : [{"Rank" :"rank", "place":[1,2,3]}, 
+ {"Ordinalindicator":"st"},"12"],
+ "joints" : ['outof','got','and']
+}
+console.log(
+a.Name,           // Ramesh
+a.joints[1],      // got
+a.Grade.Total[2], // 99
+a.joints[0],      // outof
+a.Range.opt,      // 100
+a.Grade.Type,     // marks
+a.joints[2],                          // and
+a.Range.type[0],                      // secure
+a.achive[0].place[0] + a.achive[1].Ordinalindicator, // 1st
+a.achive[0].Rank                      // rank
+);
+</script>
+</body>
+</html>

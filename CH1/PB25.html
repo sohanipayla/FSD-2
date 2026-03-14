@@ -1,0 +1,25 @@
+<html>
+<head>
+    <title>JSON User Details</title>
+</head>
+<body>
+<script>
+// User details of three persons
+let users = [
+  { "name": "Rahul", "age": 25 },
+  { "name": "Priya", "age": 25 },
+  { "name": "Amit", "age": 25 }
+];
+// Convert object to JSON string
+let jsonString = JSON.stringify(users);
+// Convert back to object
+let obj = JSON.parse(jsonString);
+// (1) Print User Details
+console.log("User Details:");
+console.log(obj);
+// (2) Name of 2nd person and age
+console.log("Name of 2nd person:", obj[1].name);
+console.log("Age of 2nd person:", obj[1].age);
+</script>
+</body>
+</html>

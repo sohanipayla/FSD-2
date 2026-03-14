@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>Highest Height</title>
+</head>
+<body>
+<script>
+let persons = [
+  { name: "Rahul", height: 170 },
+  { name: "Priya", height: 165 },
+  { name: "Amit", height: 180 },
+  { name: "Neha", height: 160 }
+];
+let tallest = persons[0];
+for (let i = 1; i < persons.length; i++) {
+  if (persons[i].height > tallest.height) {
+    tallest = persons[i];
+  }
+}
+console.log("Person with highest height:");
+console.log("Name:", tallest.name);
+console.log("Height:", tallest.height);
+</script>
+</body>
+</html>

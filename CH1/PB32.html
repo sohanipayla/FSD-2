@@ -1,0 +1,21 @@
+<html>
+<body>
+<script>
+let data = {
+  persons: [
+    { name: "Rahul", age: 22 },
+    { name: "Priya", age: 25 },
+    { name: "Amit", age: 20 }
+  ]
+};
+// sort by age in descending order
+data.persons.sort(function(a, b){
+  return b.age - a.age;
+});
+// print names according to sorted age
+for(let i = 0; i < data.persons.length; i++){
+  console.log(data.persons[i].name);
+}
+</script>
+</body>
+</html>
