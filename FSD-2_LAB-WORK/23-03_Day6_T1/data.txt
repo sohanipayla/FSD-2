@@ -1,0 +1,3 @@
+23 10 45 5 88 
+Sorted array: 5,10,23,45,88
+maximum number=88

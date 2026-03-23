@@ -1,0 +1,2 @@
+XYZ file is created
+Data appended to XYZ file

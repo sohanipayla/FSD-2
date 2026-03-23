@@ -1,0 +1,3 @@
+var url=require('url');
+url.parse(url_string,parse_query_String,slashes_host)
+parse_query_String=True ,False by default False
