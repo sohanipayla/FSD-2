@@ -1,0 +1,6 @@
+An Event Emitter in Node.js is an object that allows communication between different parts of an 
+application using events. It is part of the built-in events module.
+
+It works by:
+->Emitting events using emit()
+->Listening to events using on()

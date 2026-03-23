@@ -1,0 +1,14 @@
+Synchronous methods execute tasks sequentially and block the execution until the operation is complete.
+Example:
+const fs = require('fs');
+const data = fs.readFileSync('file.txt', 'utf8');
+console.log(data);
+
+Asynchronous methods execute tasks non-blocking, allowing other operations to run while the file is being processed.
+Example:
+const fs = require('fs');
+fs.readFile('file.txt', 'utf8', (err, data) => {
+    if (err) throw err;
+    console.log(data);
+});
+Difference: Synchronous = blocking, Asynchronous = non-blocking (faster and preferred in Node.js).

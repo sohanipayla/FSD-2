@@ -1,0 +1,9 @@
+The package.json file in a Node.js project is a configuration file that contains important information 
+about the project such as its name, version, main file, scripts, and list of dependencies.
+
+It plays a key role in dependency management by listing all required packages under dependencies and 
+devDependencies. This ensures that the project can be easily shared and recreated.
+
+npm (Node Package Manager) manages dependencies by installing the packages listed in package.json using 
+the npm install command. It downloads the required modules into the node_modules folder and keeps track 
+of versions to maintain consistency across different environments.
