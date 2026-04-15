@@ -1,31 +1,31 @@
-// develop a web app that simulates a college classroom entry system using middleware when a student access the class routes 
-// i) Log that the student entered the campus
-// ii) Verify wheather the student have a valid id proof 
-// iii) If valid, allow entry and display a welcome message. If not valid deny access
+// develop a web appli that simulates a college class room antisystem using middleware when a student access 
+// a class route 1)log that the student enter the campus
+    //2) verify whether the student has a valid id proof 
+    //3) if valid allow entry and  display a welcome msg if not valid deny acces 
 
-const express = require("express")
-const app = express()
-const entryLog = (req,res,next)=>{
-    console.log("Student Entered in Campus")
-    next()
+
+const express=require('express');
+const app=express();
+
+const Jessica=(req,res,next)=>{
+    console.log(`${new Date().toISOString} Fucking student entered in LJ Campus`);
+    next();
 }
-hasid=true
-const checkId = (req,res,next)=>{
-    if (hasid == true){
-	req.student="Siya";
-        console.log("ID verified");
+
+const verifyid=(req,res,next)=>{
+    const id1=req.query.id==='true';
+    if(id1){
+        next();
     }
     else{
-        console.log("Not a valid id");
+        res.send("Access Denied")
     }
-    next()
 }
+app.use(Jessica);
 
-app.use("/user",entryLog,checkId)
-app.get("/user",(req,res)=>{
-    res.send(`Welcome ${req.student} to class`)
+app.get('/class',verifyid,(req,res)=>{
+    const studentName = req.query.name || "Student"; 
+    res.send(`Welcome  ${studentName}  to the classroom! Please take your seat.`);
 })
-app.listen(2000,()=>{
-    console.log("Running");
-    
-})
+
+app.listen(3000);
