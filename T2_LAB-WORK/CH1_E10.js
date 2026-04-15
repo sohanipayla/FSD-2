@@ -1,25 +1,26 @@
-// create a basic web application that displays a form on the home page to enter users name and marks sends the form data to the server 
-// using a post request the server should read the submitted name and marks from the request body finally display msg that user1 get
-express=require("express");
-app=express();
-app.use(express.urlencoded({extended:true}));
+//create a web apk that displays a form on the home page to enter user's name and user's marks
+// send the form data to the server using the post request. the server should read the submitted name and marks from the req body.
+// finally display msg that user1 get 
+
+express=require("express")
+app=express()
+
+app.use(express.urlencoded({extended:true}))
+
 app.get("/",(req,res)=>{
-    res.send(`<h1>User form</h1>
-        <form action="/user" method="POST">
-        Name:<input type="text" name="n1"/>
-        T1:<input type="text" name="t1"/>
-        T2:<input type="text" name="t2"/>
-        T3:<input type="text" name="t3"/>
-        <button type="submit">Calculte</button>
-        </form>`)
-});
-app.post("/user",(req,res)=>{
-    name1=req.body.n1;
-    T1=req.body.t1;
-    T2=req.body.t2;
-    T3=req.body.t3;
-    res.send(name1+ " avg marks: "+ ((T1+T2+T3)/3));
+    res.send(`<h1> User Form </h1> <form action="/user" method="POST"> <input type="text" name="n1"> T1 <input type="number" name="m1"> T2 <input type="number" name="m2"> T3 <input type="number" name="m3"> <button type="submit">calculate</button> </form>`)
 })
-app.listen(6059,()=>{
-    console.log("calculating avg")
+
+
+app.post("/user",(req,res)=>{
+    name=req.body.n1
+    m1=parseInt(req.body.m1)
+    m2=parseInt(req.body.m2)
+    m3=parseInt(req.body.m3)
+    avg=(m1+m2+m3)/3
+    res.send(name+" = "+avg)
+})
+
+app.listen(6055,()=>{
+    console.log("running")
 })
