@@ -12,50 +12,50 @@
 // redirected to home page. Make app.js file use get method in express js. No
 // need to write html file having form elements.
 // After 10 seconds it will give message "no feedback available" message to user
-const express = require("express");
-const cp = require("cookie-parser");
+const express = require('express');
+const cookieParser = require('cookie-parser');
 const app = express();
 
-app.use(cp());
+app.use(cookieParser());
 
-app.get("/", (req, res) => {
-    res.send(`
-        <h2>User Feedback Form</h2>
-        <form action="/set-feedback" method="GET">
-            Name: <input type="text" name="name" required><br><br>
-            Email: <input type="email" name="email" required><br><br>
-            Message: <textarea name="message" required></textarea><br><br>
-            Rating: 
-            <input type="radio" name="rating" value="Bad"> Bad
-            <input type="radio" name="rating" value="Average"> Average
-            <input type="radio" name="rating" value="Good"> Good
-            <input type="radio" name="rating" value="Very Good"> Very Good
-            <input type="radio" name="rating" value="Excellent"> Excellent<br><br>
-            <button type="submit">Submit Feedback</button>
-        </form>
-    `);
-});
+// 1. Home Page (HTML Form + Submission Logic)
+app.get('/', (req, res) => {
+    const { name, email, message, rating } = req.query;
 
-app.get("/set-feedback", (req, res) => {
-    const feedbackData = {
-        name: req.query.name,
-        email: req.query.email,
-        message: req.query.message,
-        rating: req.query.rating
-    };
-
-    res.cookie("feedback", JSON.stringify(feedbackData), { maxAge: 10000 });
-    res.send(`
-        <h3>Feedback submitted successfully!</h3>
-        <p><a href="/view-feedback">Click here to view feedback details</a></p>
-    `);
-});
-
-app.get("/view-feedback", (req, res) => {
-    if (req.cookies.feedback) {
-        const feedback = JSON.parse(req.cookies.feedback);
+    if (name && email) {
+        res.cookie('feedback', { name, email, message, rating }, { maxAge: 10000 });
+        
         res.send(`
-            <h2>Feedback Details:</h2>
+            <h2>Feedback Submitted Successfully!</h2>
+            <p><a href="/view-feedback">Click here to view feedback details</a></p>
+        `);
+    } else {
+        res.send(`
+            <h2>User Feedback Form</h2>
+            <form action="/" method="GET">
+                Name: <input type="text" name="name" required><br><br>
+                Email: <input type="email" name="email" required><br><br>
+                Message: <textarea name="message"></textarea><br><br>
+                Rating: 
+                <input type="radio" name="rating" value="Bad"> Bad
+                <input type="radio" name="rating" value="Average"> Average
+                <input type="radio" name="rating" value="Good"> Good
+                <input type="radio" name="rating" value="Very Good"> Very Good
+                <input type="radio" name="rating" value="Excellent"> Excellent
+                <br><br>
+                <button type="submit">Submit Feedback</button>
+            </form>
+        `);
+    }
+});
+
+// 2. Feedback Details Page
+app.get('/view-feedback', (req, res) => {
+    const feedback = req.cookies.feedback;
+
+    if (feedback) {
+        res.send(`
+            <h2>Feedback Details (Stored in Cookie):</h2>
             <p><strong>Name:</strong> ${feedback.name}</p>
             <p><strong>Email:</strong> ${feedback.email}</p>
             <p><strong>Message:</strong> ${feedback.message}</p>
@@ -64,12 +64,14 @@ app.get("/view-feedback", (req, res) => {
             <a href="/logout">Logout</a>
         `);
     } else {
-        res.send("<h3>No feedback available</h3> <p><a href='/'>Go Back</a></p>");
+        res.send('<h2>no feedback available</h2><p><a href="/">Go Back</a></p>');
     }
 });
-app.get("/logout", (req, res) => {
-    res.clearCookie("feedback");
-    res.redirect("/");
+
+// 3. Logout
+app.get('/logout', (req, res) => {
+    res.clearCookie('feedback');
+    res.redirect('/');
 });
 
-app.listen(3012);
+app.listen(3000);
