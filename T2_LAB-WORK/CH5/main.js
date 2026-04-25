@@ -8,3 +8,4 @@
 // 1)localhost:7899/api
 // 2)localhost:7899/api/101
 // 3)localhost:7899/api/branch/it
+// 4)localhost:7899/api/city/surat 
