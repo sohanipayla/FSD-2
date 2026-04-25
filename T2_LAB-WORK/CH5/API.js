@@ -44,4 +44,17 @@ router.get("/branch/:branch", (req, res) => {
         res.send("Branch Not Found");
     }
 });
+
+// 4) Display content by city (localhost:7899/api/city/surat)
+router.get("/city/:cityname", (req, res) => {
+    const cityName = req.params.cityname.toLowerCase();
+    const result = data.filter((cn) => cn.city.toLowerCase() === cityName);
+    
+    if (result.length > 0) {
+        res.json(result);
+    } else {
+        res.send("City Not Found");
+    }
+});
+
 module.exports=router
