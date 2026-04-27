@@ -13,7 +13,7 @@ app.get("/",(req,res)=>{
 })
 var mailOptions={
     from:"graphinity0301@gmail.co",
-    to:"mahekkoshti2@gmail.com",
+    to:"samphotography540@gmail.com",
     subject:"hello",
     text:"Test Mail",
     html:"Testing Node mailer,<h1>Effect of </h1>"
