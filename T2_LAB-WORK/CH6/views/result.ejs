@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+</head>
+<body>
+    <h1>Student Result</h1>
+    <p><strong>Name:</strong> <%= name %></p>
+    <p><strong>Marks:</strong> <%= marks %></p>
+
+    <% if (marks >= 9) { %>
+        <h2 style="color: green">Result: PASS</h2>
+    <% } else { %>
+        <h2 style="color: red">Result: FAIL</h2>
+    <% } %>
+
+    <br>
+    <a href="/">Go Back</a>
+</body>
+</html>
