@@ -1,0 +1,18 @@
+.heroParagraph {
+    color: green;
+    font-size: 30px;
+    font-weight: bold;
+  }
+  
+  .dateTimeCenter {
+    color: pink;
+    text-align: center;
+  }
+  
+  .heroImage {
+    display: block;
+    margin: 10px auto;
+    max-width: 100%;
+    height: auto;
+  }
+  
