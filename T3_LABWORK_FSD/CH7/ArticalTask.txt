@@ -1,0 +1,7 @@
+Problem Statement:Create a structured React component named Article inside a file named articlePage.jsx. 
+The application layout must be styled using an external stylesheet named articleStyle.css via custom class selectors. 
+The UI must render the following specific elements in sequential order:Title: A centered layout heading displaying 
+"Discovering the Magic of React" in an italic font style, colored dark blue, with a specific font size of 32px.
+Hero Image: An image element loading a banner named hero.png sourced directly from your local src/assets/ directory.
+Article Content: A paragraph formatted using an external CSS class selector with a custom text color of dark green,
+a font size of 20px, and styled in a bold format typeface.
