@@ -1,0 +1,36 @@
+============================================================
+           REACT 19 + VITE INSTALLATION GUIDE (FSD-2)
+============================================================
+
+STEP 1: Verify Node.js is installed
+-----------------------------------
+Run these commands to check if Node.js and NPM are present:
+node -v
+npm -v
+
+STEP 2: Create a New React Project using Vite
+----------------------------------------------
+Run this command in your main workspace folder (e.g., D:\SOHANI_FSD2\):
+npm create vite@latest myapp -- --template react
+
+(When prompted, select 'React' and then 'JavaScript')
+
+STEP 3: Navigate into your Project Directory
+---------------------------------------------
+cd myapp
+
+STEP 4: Install Necessary Node Modules & Dependencies
+------------------------------------------------------
+npm install
+
+STEP 5: Set up Custom Port Permanently (Optional)
+--------------------------------------------------
+Open 'package.json' and update the dev script line to:
+"dev": "vite --port 3067"
+
+STEP 6: Launch the Local Development Server
+--------------------------------------------
+Run this command to start your app:
+npm run dev
+
+============================================================
