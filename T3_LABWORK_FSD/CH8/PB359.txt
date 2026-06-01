@@ -1,0 +1,4 @@
+Write a program to build React app for task todo list. 
+•	Add 1 input field and button and by clicking on button display entered task 
+on the same page. 
+•	Also, add delete button with each added task to delete the task.  

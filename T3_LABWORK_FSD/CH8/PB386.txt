@@ -1,0 +1,5 @@
+Create a React app:
+• Display product quantity
+• Add buttons “Add Item” and “Remove Item”
+• Quantity should never go below 0
+• Use useReducer to manage state
