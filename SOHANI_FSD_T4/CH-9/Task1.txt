@@ -1,0 +1,33 @@
+create a collection named Employee having field name,age,years or expirence and rating insert5 to 10 random documents
+in collection 1)find  name of all employees having age >25 2)increase the years of expirence for all employees by 1
+3) arrange all the records in decending order of age 4)show the name of employee who is the oldest employee among all 
+the employees only name return 5)delete the record of the employee if the years of expirence is 5.
+
+================================================================================
+                    MONGODB EMPLOYEE ASSIGNMENT ANSWERS
+================================================================================
+db.Employee.insertMany([
+  { name: "Amit", age: 24, years_of_experience: 2, rating: 4.5 },
+  { name: "Rahul", age: 28, years_of_experience: 5, rating: 4.2 },
+  { name: "Priya", age: 32, years_of_experience: 8, rating: 4.8 },
+  { name: "Sneha", age: 26, years_of_experience: 4, rating: 3.9 },
+  { name: "Vikram", age: 35, years_of_experience: 10, rating: 4.7 },
+  { name: "Rohan", age: 23, years_of_experience: 1, rating: 4.0 }
+])
+-----------------------------------------------------------------------------
+
+1) Find name of all employees having age > 25
+db.Employee.find({ age: { $gt: 25 } }, { name: 1, _id: 0 })
+
+2) Increase the years of experience for all employees by 1
+db.Employee.updateMany({}, { $inc: { years_of_experience: 1 } })
+
+3) Arrange all the records in descending order of age
+db.Employee.find().sort({ age: -1 })
+
+4) Show the name of employee who is the oldest employee among all the employees (only name return)
+db.Employee.find({}, { name: 1, _id: 0 }).sort({ age: -1 }).limit(1)
+
+5) Delete the record of the employee if the years of experience is 5
+db.Employee.deleteMany({ years_of_experience: 5 })
+================================================================================

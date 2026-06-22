@@ -1,0 +1,271 @@
+==================================================
+                 MONGODB NOTES
+==================================================
+
+1. MongoDB Overview
+-------------------
+* Open Source: It is a free and open-source software.
+* NoSQL Database: It does not use traditional table/row structures.
+
+2. RDBMS vs NoSQL (MongoDB Approach)
+------------------------------------
+* Schema:
+  - RDBMS: Fixed schema (Cannot be changed easily)
+  - NoSQL: Dynamic schema (Flexible and changeable)
+
+* Data Storage:
+  - RDBMS: Not suitable for hierarchical data storage.
+  - NoSQL: Highly suitable for hierarchical data storage.
+
+* Scaling:
+  - RDBMS: Vertical scaling (Increasing power of a single machine)
+  - NoSQL: Horizontal scaling (Adding more machines/servers)
+
+* Examples:
+  - RDBMS: MySQL, PostgreSQL
+  - NoSQL: MongoDB, GraphQL
+
+3. RDBMS vs MongoDB Mapping (Terminology)
+-----------------------------------------
+* Database  -->  Database (Same in both)
+* Table     -->  Collection (Group of documents)
+* Row       -->  Document (A single record/JSON object)
+* Column    -->  Field (Key-value pair inside a document)
+
+4. Advantages of MongoDB
+------------------------
+* Schema-less: No fixed structure required; highly flexible.
+* Document-oriented: Stores data in JSON/BSON document formats.
+* Scalability: Supports horizontal scaling to handle huge data amounts.
+* Third-party support: Easily integrates with various external tools and languages.
+* Replication: Creates data copies across multiple servers for backup and high availability.
+
+5. MongoDB Installation Step-by-Step Path
+-----------------------------------------
+Go to official website: https://mongodb.com
+  └── Click on 'Products'
+        └── Select 'Community Edition'
+              └── Click on 'Download Community'
+                    └── Download 'MongoDB Community Server'
+
+[Download Configurations]:
+* Version:  8.3.4
+* Platform: Windows x64
+* Package:  MSI (Installer)
+
+[MongoDB Shell Download Path]:
+Link: https://mongodb.com
+* Version:  2.8.3
+* Platform: Windows x64 (10+)
+* Package:  ZIP
+
+[MongoDB Shell Configuration Step]:
+* Extract the downloaded MongoDB Shell ZIP file.
+* Copy the extracted files (including mongosh.exe).
+* Paste them inside the MongoDB Server bin folder:
+  Path: C:\Program Files\MongoDB\Server\8.0\bin
+
+6. Environment Variables Setup (Path Configuration)
+----------------------------------------------------
+To run MongoDB commands from any directory in Command Prompt:
+1. Open Windows Search and type "Environment Variables".
+2. Click on "Environment Variables" button at the bottom.
+3. Under "System Variables", look for the variable named "Path" and select it.
+4. Click on "Edit".
+5. Click on "New" and paste the following path:
+   c:\Program Files\MongoDB\Server\8.0\bin
+6. Click "OK" to save all windows.
+
+7. Verification & Custom Port Connection (CMD Commands)
+-------------------------------------------------------
+* Check Version:
+  cmd --> mongo --version
+
+* Default Connection:
+  By default, running 'mongosh' connects to localhost on default port 27017.
+  URL: mongodb://localhost:27017
+
+* Connect to a Specific IP and Custom Port Number:
+  To connect to a custom IP (e.g., 192.168.1.100) and different port (e.g., 27018):
+  Command: mongosh "mongodb://192.168.1.100:27018"
+
+8. Basic MongoDB Shell (mongosh) Queries
+-----------------------------------------
+* Step 1: Open MongoDB Shell
+  cmd --> mongosh
+  (By default, you will enter the 'test' database environment)
+
+* Step 2: Show all existing databases
+  test> show dbs
+
+* Step 3: Show collections inside the current 'test' database
+  test> show collections
+
+* Step 4: Switch to or create a new database named 'mydb'
+  test> use mydb
+  (Output: switched to db mydb)
+
+* Step 5: Verify the current database you are in
+  mydb> db
+
+* Step 6: Create a new collection (table) inside 'mydb'
+  mydb> db.createCollection("collection_name")
+
+* Step 7: Drop/Delete a specific collection (e.g., 'faculty')
+  mydb> db.faculty.drop()
+
+* Step 8: Drop/Delete the entire current database
+  mydb> db.dropDatabase()
+  (Note: This deletes the database you are currently using)
+
+* Step 9: Rename an existing collection (e.g., from 'student' to 'students')
+  mydb> db.student.renameCollection("Rename_name")
+
+9. Inserting Documents into Collection
+--------------------------------------
+* Insert a Single Document:
+  Use insertOne() to add one document at a time.
+  Command:
+  mydb> db.students.insertOne({ name: "xyz", rollno: 23 })
+
+* Insert Multiple Documents:
+  Use insertMany() to add more than one document at the same time using an array [].
+  Command:
+  mydb> db.students.insertMany([{ name: "PQR", age: 20 }, { name: "abc", age: 24 }])
+
+10. Counting and Finding Documents (Flow)
+------------------------------------------
+* Step 1: Legacy count() Method
+  (Used in older MongoDB versions to quickly count all records)
+  Command:
+  mydb> db.students.count()
+
+* Step 2: Basic find() Method
+  (Displays all documents instead of counting them)
+  Command:
+  mydb> db.students.find()
+
+* Step 3: Modern countDocuments() Method
+  (The current standard way to count documents with filters)
+  Syntax:
+  mydb> db.collection_name.countDocuments(filter)
+
+  Example 1 (All records):
+  mydb> db.students.countDocuments({})
+
+  Example 2 (Filtered records):
+  mydb> db.students.countDocuments({ status: "Active" })
+
+11. Advanced Displaying Documents (Filters & Projections)
+----------------------------------------------------------
+* Syntax for Advanced Filtering & Projection:
+  Command:
+  mydb> db.students.find(query/filter/condition, projection)
+
+* Example of Only Query (Filtering data):
+  Command:
+  mydb> db.students.find({ name: "N1" })
+
+* Example of Only Projection (Selecting specific fields):
+  Command:
+  mydb> db.students.find({}, { name: 1 })
+
+* Example of Hiding the MongoDB ID (_id):
+  Command:
+  mydb> db.students.find({}, { name: 1, _id: 0 })
+
+12. Fetching a Single Document
+------------------------------
+* View Only the First Matching Document:
+  Use findOne() to fetch only the first document that satisfies the condition.
+  Command:
+  mydb> db.students.findOne()
+  
+  With Condition Example:
+  mydb> db.students.findOne({ status: "Active" })
+
+13. Limiting the Output Results
+-------------------------------
+* Limit the Number of Displayed Documents:
+  Syntax:
+  mydb> db.students.find().limit(number)
+
+  Example (Shows only the first 2 documents):
+  mydb> db.students.find().limit(2)
+
+* Important Note on findOne() and limit():
+  You CANNOT use .limit() with findOne() because findOne() already returns a single document object, not a cursor.
+  Incorrect: db.students.findOne().limit(2)  --> Will cause an error!
+  Correct:   db.students.find().limit(1)     --> Works perfectly if you want to limit cursor output.
+
+14. Skipping Documents
+----------------------
+* Skip a Specific Number of Documents:
+  Syntax:
+  mydb> db.students.find().skip(number)
+
+  Example (Skips the first 2 documents and shows the rest):
+  mydb> db.students.find().skip(2)
+
+* Combining Limit and Skip (Pagination Example):
+  mydb> db.students.find().skip(2).limit(2)
+
+15. Chaining Find, Limit, and Skip together
+--------------------------------------------
+* Combining all three methods in a single query:
+  Syntax:
+  mydb> db.students.find().limit(number).skip(number)
+
+  Example:
+  mydb> db.students.find().limit(2).skip(1)
+
+* Internal Working Rule:
+  No matter what order you write them in, MongoDB will ALWAYS execute 'skip()' first and then apply 'limit()'.
+
+16. Update Operations
+---------------------
+* Standard Syntax for updateOne:
+  mydb> db.collection_name.updateOne(filter, document, options)
+  - filter: Condition to find the document.
+  - document: The actual modifications using operators like $set.
+  - options: Optional parameters (e.g., upsert: true).
+
+* Update Multiple Documents (updateMany):
+  Syntax:
+  mydb> db.collection_name.updateMany(filter, document, options)
+
+  Example (Updates status to "Inactive" for all students whose age is 24):
+  mydb> db.students.updateMany({ age: 24 }, { $set: { status: "Inactive" } })
+
+17. Delete Operations
+---------------------
+* Delete a Single Document (deleteOne):
+  Syntax:
+  mydb> db.collection_name.deleteOne(filter, options)
+
+  Example:
+  mydb> db.students.deleteOne({ name: "xyz" })
+
+* Delete Multiple Documents (deleteMany):
+  Syntax:
+  mydb> db.collection_name.deleteMany(filter, options)
+
+  Example:
+  mydb> db.students.deleteMany({ age: 27 })
+
+  18. Sorting Documents
+---------------------
+* Sort Results in Ascending or Descending Order:
+  Use sort() to arrange documents based on field values. 1 is for Ascending and -1 is for Descending.
+
+  Syntax:
+  mydb> db.collection_name.find().sort({ field_name: 1 or -1 })
+
+  Example 1 (Sort by age from youngest to oldest - Ascending):
+  mydb> db.students.find().sort({ age: 1 })
+
+  Example 2 (Sort by roll number from highest to lowest - Descending):
+  mydb> db.students.find().sort({ rollno: -1 })
+
+
+==================================================
