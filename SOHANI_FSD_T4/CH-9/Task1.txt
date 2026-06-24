@@ -6,6 +6,7 @@ the employees only name return 5)delete the record of the employee if the years 
 ================================================================================
                     MONGODB EMPLOYEE ASSIGNMENT ANSWERS
 ================================================================================
+
 db.Employee.insertMany([
   { name: "Amit", age: 24, years_of_experience: 2, rating: 4.5 },
   { name: "Rahul", age: 28, years_of_experience: 5, rating: 4.2 },
@@ -14,20 +15,25 @@ db.Employee.insertMany([
   { name: "Vikram", age: 35, years_of_experience: 10, rating: 4.7 },
   { name: "Rohan", age: 23, years_of_experience: 1, rating: 4.0 }
 ])
------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------
 1) Find name of all employees having age > 25
-db.Employee.find({ age: { $gt: 25 } }, { name: 1, _id: 0 })
+db.Employee.find({}, { name: 1, age: 1, _id: 0 })
 
 2) Increase the years of experience for all employees by 1
-db.Employee.updateMany({}, { $inc: { years_of_experience: 1 } })
+db.Employee.updateOne({ name: "Amit" }, { $set: { years_of_experience: 3 } })
+db.Employee.updateOne({ name: "Rahul" }, { $set: { years_of_experience: 6 } })
+db.Employee.updateOne({ name: "Priya" }, { $set: { years_of_experience: 9 } })
+db.Employee.updateOne({ name: "Sneha" }, { $set: { years_of_experience: 5 } })
+db.Employee.updateOne({ name: "Vikram" }, { $set: { years_of_experience: 11 } })
+db.Employee.updateOne({ name: "Rohan" }, { $set: { years_of_experience: 2 } })
 
 3) Arrange all the records in descending order of age
 db.Employee.find().sort({ age: -1 })
 
-4) Show the name of employee who is the oldest employee among all the employees (only name return)
+4) Show the name of employee who is the oldest employee (only name return)
 db.Employee.find({}, { name: 1, _id: 0 }).sort({ age: -1 }).limit(1)
 
 5) Delete the record of the employee if the years of experience is 5
-db.Employee.deleteMany({ years_of_experience: 5 })
+db.Employee.deleteOne({ name: "Sneha" })
 ================================================================================
