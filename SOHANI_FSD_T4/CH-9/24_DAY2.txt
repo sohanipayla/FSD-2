@@ -1,0 +1,171 @@
+================================================================================
+                    MONGODB COMPARISON OPERATORS NOTES
+================================================================================
+
+1) $eq (Equals to)
+-------------------
+* Meaning: Matches values that are exactly equal to a specified value.
+* Example: To find people who belong only to the "IT" branch:
+  db.people.find({ branch: { $eq: "IT" } })
+
+2) $gt (Greater Than)
+----------------------
+* Meaning: Matches values that are greater than a specified value.
+* Example: To find people whose age is greater than 20:
+  db.people.find({ age: { $gt: 20 } })
+
+3) $lt (Less Than)
+-------------------
+* Meaning: Matches values that are less than a specified value.
+* Example: To find people whose age is less than 18:
+  db.people.find({ age: { $lt: 18 } })
+
+4) $gte (Greater Than or Equal to)
+-----------------------------------
+* Meaning: Matches values that are greater than or equal to a specified value.
+* Example: To find people whose age is 20 or older:
+  db.people.find({ age: { $gte: 20 } })
+
+5) $lte (Less Than or Equal to)
+--------------------------------
+* Meaning: Matches values that are less than or equal to a specified value.
+* Example: To find people whose age is 25 or younger:
+  db.people.find({ age: { $lte: 25 } })
+
+6) $ne (Not Equal to)
+----------------------
+* Meaning: Matches all values that are NOT equal to the specified value.
+* Example: To find people from all branches except the "IT" branch:
+  db.people.find({ branch: { $ne: "IT" } })
+
+7) $in (In)
+------------
+* Meaning: Matches any of the values specified in an array list.
+* Example: To find people who are in either the "IT" or "CSE" branch:
+  db.people.find({ branch: { $in: ["IT", "CSE"] } })
+
+8) $nin (Not In)
+-----------------
+* Meaning: Matches none of the values specified in the array list.
+* Example: To find people who are NOT in the "IT" or "CSE" branches:
+  db.people.find({ branch: { $nin: ["IT", "CSE"] } })
+
+================================================================================
+
+================================================================================
+                    MONGODB LOGICAL OPERATORS NOTES
+================================================================================
+
+1) $and (Logical AND)
+----------------------
+* Meaning: Joins query clauses with a loose short-circuit AND. It returns all 
+  documents that match ALL the given conditions.
+* Example: To find participants whose age is 28 AND grade is "A":
+  db.Participaint.find({ $and: [ { age: 28 }, { grade: "A" } ] })
+
+2) $or (Logical OR)
+--------------------
+* Meaning: Joins query clauses with a loose short-circuit OR. It returns 
+  documents if AT LEAST ONE of the conditions is true.
+* Example: To find participants whose grade is either "A" OR "B":
+  db.Participaint.find({ $or: [ { grade: "A" }, { grade: "B" } ] })
+
+3) $not (Logical NOT)
+----------------------
+* Meaning: Inverts the effect of a query expression. It returns documents 
+  that do NOT match the specified condition.
+* Example: To find participants whose age is NOT greater than 25:
+  db.Participaint.find({ age: { $not: { $gt: 25 } } })
+
+4) $nor (Logical NOR)
+----------------------
+* Meaning: Joins query clauses with a loose short-circuit NOR. It returns all 
+  documents that FAIL to match ALL the given conditions.
+* Example: To find participants whose grade is NEITHER "A" NOR "B":
+  db.Participaint.find({ $nor: [ { grade: "A" }, { grade: "B" } ] })
+
+================================================================================
+
+================================================================================
+                 MONGODB FIELD UPDATE OPERATORS NOTES
+================================================================================
+
+1) $inc (Increment)
+--------------------
+* Meaning: Increments (increases) or decrements (decreases) the value of a 
+  numeric field by a specified amount.
+* Example: To increase the std of student "X" by 1:
+  db.Table1.updateOne({ name: "X" }, { $inc: { std: 1 } })
+
+2) $mul (Multiply)
+-------------------
+* Note: MongoDB does not have a "$null" operator for updating fields. It uses 
+  "$mul" to multiply the value of a field by a specified number.
+* Example: To multiply the std of student "Y" by 2:
+  db.Table1.updateOne({ name: "Y" }, { $mul: { std: 2 } })
+
+3) $rename (Rename)
+--------------------
+* Meaning: Renames the name of a field in a document to a new field name.
+* Example: To rename the field "std" to "standard" for all documents:
+  db.Table1.updateMany({}, { $rename: { "std": "standard" } })
+
+4) $set (Set)
+--------------
+* Meaning: Replaces the value of a field with a specified new value, or 
+  creates the field if it does not exist.
+* Example: To change the std of student "Z" to 5:
+  db.Table1.updateOne({ name: "Z" }, { $set: { std: 5 } })
+
+5) $unset (Unset)
+------------------
+* Meaning: Deletes a specific field completely from a document.
+* Example: To remove the "std" field from student "W":
+  db.Table1.updateOne({ name: "W" }, { $unset: { std: "" } })
+
+================================================================================
+
+================================================================================
+                         MONGODB CURSOR NOTES
+================================================================================
+
+What is a Cursor?
+------------------
+* When you run a query using db.collection.find(), MongoDB does not return all 
+  matching documents at once to save memory.
+* Instead, it returns a pointer to the result set. This pointer is called a Cursor.
+* Think of a cursor like a pointer or a loop index that helps you travel through 
+  your data row by row.
+
+How does it work?
+------------------
+* By default, the MongoDB shell iterates the cursor automatically to display 
+  the first 20 documents on your screen.
+* You can use Javascript methods on a cursor to control the results.
+
+Most Common Cursor Methods:
+----------------------------
+
+1) limit()
+   * Meaning: Restricts the number of documents returned by the cursor.
+   * Example: To display only the first 2 documents from Table1:
+     db.Table1.find().limit(2)
+
+2) skip()
+   * Meaning: Tells the cursor to jump over a specific number of documents 
+     and display the rest.
+   * Example: To skip the first 1 document and show the remaining ones:
+     db.Table1.find().skip(1)
+
+3) sort()
+   * Meaning: Arranges the documents in a specific order (1 for Ascending, 
+     -1 for Descending).
+   * Example: To sort students based on their std from highest to lowest:
+     db.Table1.find().sort({ std: -1 })
+
+4) count()
+   * Meaning: Returns the total number of documents matched by the query.
+   * Example: To see how many documents are inside Table1:
+     db.Table1.find().count()
+
+================================================================================

@@ -1,0 +1,9 @@
+--->update only one document with branch RAI and age 21 where age is lessthan 10
+ans:db.people.updateOne({ age: { $lt: 10 } }, { $set: { branch: "RAI", age: 21 } })
+
+--->display all documents where age is greater than 18 and lessthan 25
+ans:db.people.find({ age: { $gt: 18, $lt: 25 } })
+
+--->display all the documents where people are not age 18 and 21
+ans:db.people.find({ age: { $nin: [18, 21] } })
+
