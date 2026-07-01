@@ -1,0 +1,164 @@
+======================================================================
+              FINAL MONGODB REGEX CHEAT SHEET & TEST DATA
+======================================================================
+
+----------------------------------------------------------------------
+PART 1: SAMPLE TEST DATA (Insert these values into your DB to test)
+----------------------------------------------------------------------
+test_user_1
+Test_admin_2
+john_test
+helper_test_3
+4_test_account
+567_guest
+testing_profile
+98450
+                   <-- (An empty string / blank line for Case 8)
+Alex
+SuperDeveloper
+
+
+----------------------------------------------------------------------
+PART 2: MONGODB REGEX QUERIES AND DEFINITIONS
+----------------------------------------------------------------------
+
+[CASE 1] Find all names where "test" occurs (Case-Sensitive)
+----------------------------------------------------------------------
+Query 1: db.lju.find({name: {$regex: /test/}})
+Query 2: db.lju.find({name: {$regex: "test"}})
+Matches: test_user_1, john_test, helper_test_3, 4_test_account, testing_profile
+
+
+[CASE 2] Case-Insensitive search for "test"
+----------------------------------------------------------------------
+Query:   db.lju.find({name: {$regex: /test/i}})
+Matches: test_user_1, Test_admin_2, john_test, helper_test_3, 4_test_account, testing_profile
+
+
+[CASE 3] Names beginning with "test" only
+----------------------------------------------------------------------
+Query:   db.lju.find({name: {$regex: /^test/}})
+Matches: test_user_1, testing_profile
+
+
+[CASE 4] Names ending with "test" only
+----------------------------------------------------------------------
+Query:   db.lju.find({name: {$regex: /test$/}})
+Matches: john_test
+
+
+[CASE 5] Names ending with a digit only
+----------------------------------------------------------------------
+Query 1: db.lju.find({name: {$regex: /[0-9]$/}})
+Query 2: db.lju.find({name: {$regex: /\d$/}})
+Matches: test_user_1, Test_admin_2, helper_test_3, 98450
+
+
+[CASE 6] Names starting with a digit only
+----------------------------------------------------------------------
+Query 1: db.lju.find({name: {$regex: /^[0-9]/}})
+Query 2: db.lju.find({name: {$regex: /^\d/}})
+Matches: 4_test_account, 567_guest, 98450
+
+
+[CASE 7] Accept ONLY digits (Strictly numbers, no spaces, no blanks)
+----------------------------------------------------------------------
+Query:   db.lju.find({name: {$regex: /^[0-9]+$/}})
+Matches: 98450
+Note:    Requires at least one digit (+ quantifier). Fails on blanks.
+
+
+[CASE 8] Accept ONLY digits, or allow an empty/blank string
+----------------------------------------------------------------------
+Query:   db.lju.find({name: {$regex: /^[0-9]*$/}})
+Matches: 98450, "" (empty string)
+Note:    Allows zero or more digits (* quantifier).
+
+
+[CASE 9] Match names containing exactly 3 to 10 English letters only
+----------------------------------------------------------------------
+Query:   db.lju.find({name: {$regex: /^[A-Za-z ]{3,10}$/}})
+Matches: Alex
+Note:    Fails on "SuperDeveloper" (14 letters) and names with numbers.
+
+======================================================================
+
+======================================================================
+                     MONGODB INDEXING CHEAT SHEET
+======================================================================
+
+----------------------------------------------------------------------
+PART 1: INDEX TYPES
+----------------------------------------------------------------------
+
+1) SINGLE FIELD INDEX
+----------------------------------------------------------------------
+Definition: An index created on a single field of a document. It 
+            speeds up queries filtering or sorting by that specific field.
+
+Syntax:     db.sdata.createIndex({ fieldName: 1 })  // 1 for Ascending
+            db.sdata.createIndex({ fieldName: -1 }) // -1 for Descending
+
+Example:    db.sdata.createIndex({ city: 1 })
+
+
+2) COMPOUND INDEX
+----------------------------------------------------------------------
+Definition: An index created on multiple fields. The order of fields 
+            matters strictly (Equality, Sort, Range rule).
+
+Syntax:     db.sdata.createIndex({ field1: 1, field2: -1 })
+
+Example:    db.sdata.createIndex({ city: 1, marks: -1 })
+            (Optimizes queries filtering by city AND sorting by marks)
+
+
+3) PARTIAL INDEX
+----------------------------------------------------------------------
+Definition: An index that only indexes documents that meet a specified 
+            filter expression. This reduces disk space and index overhead.
+
+Syntax:     db.sdata.createIndex(
+              { fieldToIndex: 1 },
+              { partialFilterExpression: { conditionField: { $operator: value } } }
+            )
+
+Example:    db.sdata.createIndex(
+              { name: 1 },
+              { partialFilterExpression: { marks: { $gte: 80 } } }
+            )
+            (Only indexes the names of students who scored 80 or more)
+
+
+----------------------------------------------------------------------
+PART 2: QUERY EXECUTION STAGES (COLLSCAN VS IXSCAN)
+----------------------------------------------------------------------
+To check how MongoDB executes a query, append `.explain("executionStats")` 
+to your query string. Look for the "stage" value in the output:
+
+1) COLLSCAN (Collection Scan)
+----------------------------------------------------------------------
+What it means: No matching index was found or used. MongoDB had to read 
+               every single document in the collection from top to 
+               bottom to find the results.
+Performance:   Very slow and inefficient for large datasets.
+
+Example Output:
+"winningPlan" : {
+    "stage" : "COLLSCAN"
+}
+
+
+2) IXSCAN (Index Scan)
+----------------------------------------------------------------------
+What it means: MongoDB used an index to locate the matching documents. 
+               It only scanned the index keys instead of the whole collection.
+Performance:   Extremely fast and highly optimized.
+
+Example Output:
+"winningPlan" : {
+    "stage" : "IXSCAN",
+    "indexName" : "city_1"
+}
+
+======================================================================

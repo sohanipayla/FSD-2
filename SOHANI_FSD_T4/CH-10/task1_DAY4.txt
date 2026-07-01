@@ -1,0 +1,130 @@
+example3--ans
+
+db.createCollection("sdata");
+
+db.sdata.insertMany([
+  { "_id": 1,  "name": "Amit",      "age": 18, "city": "Ahmedabad", "marks": 75, "status": "A" },
+  { "_id": 2,  "name": "Ankit123",  "age": 20, "city": "Surat",     "marks": 82, "status": "A" },
+  { "_id": 3,  "name": "Riya",      "age": 21, "city": "Rajkot",    "marks": 68, "status": "B" },
+  { "_id": 4,  "name": "TestUser",  "age": 22, "city": "Vadodara",  "marks": 90, "status": "A" },
+  { "_id": 5,  "name": "UserTest",  "age": 19, "city": "Ahmedabad", "marks": 71, "status": "B" },
+  { "_id": 6,  "name": "Testing",   "age": 20, "city": "Surat",     "marks": 84, "status": "A" },
+  { "_id": 7,  "name": "ABC123",    "age": 18, "city": "Rajkot",    "marks": 65, "status": "B" },
+  { "_id": 8,  "name": "123ABC",    "age": 23, "city": "Ahmedabad", "marks": 88, "status": "A" },
+  { "_id": 9,  "name": "98765",     "age": 22, "city": "Bhavnagar", "marks": 59, "status": "C" },
+  { "_id": 10, "name": "Anjali",    "age": 20, "city": "Surat",     "marks": 80, "status": "A" }
+]);
+
+1)display students whose name contains "Test"
+ans:db.sdata.find({ name: { $regex: /Test/ } });
+2)case Insensitive
+ans:db.sdata.find({ name: { $regex: /test/i } });
+3)display students whose name starts with "A"
+ans:db.sdata.find({ name: { $regex: /^A/ } });
+4)end with "Test"
+ans:db.sdata.find({ name: { $regex: /Test$/ } });
+5)starts with a digit
+ans:db.sdata.find({ name: { $regex: /^[0-9]/ } });
+6)ends with a digit
+ans:db.sdata.find({ name: { $regex: /[0-9]$/ } });
+7)contains only digit
+ans:db.sdata.find({ name: { $regex: /^[0-9]+$/ } });
+8)contains only letters
+ans:db.sdata.find({ name: { $regex: /^[A-Za-z]+$/ } });
+9)starts with letters,ends with a digit
+ans:db.sdata.find({ name: { $regex: /^[A-Za-z].*[0-9]$/ } });
+10)starts with "A" or "R"
+ans:db.sdata.find({ name: { $regex: /^[AR]/ } });
+11) At least one digit anywhere in the name
+ans:db.sdata.find({ name: { $regex: /[0-9]/ } });
+12) Contains two uppercase letters 
+ans:db.sdata.find({ name: { $regex: /^[A-Z]{2}/} });
+13) Exactly three digits at the end 
+ans:db.sdata.find({ name: { $regex: /[^0-9][0-9]{3}$/ } });
+
+
+
+_id	Name	Age
+1	ABC	10
+2	XYZ	12
+3	ABC	15
+4	PQR	13
+5	XYZ	15
+6	ABC	8
+
+db.createCollection("tdata");
+db.tdata.insertMany([
+  { "_id": 1, "Name": "ABC", "Age": 10 },
+  { "_id": 2, "Name": "XYZ", "Age": 12 },
+  { "_id": 3, "Name": "ABC", "Age": 15 },
+  { "_id": 4, "Name": "PQR", "Age": 13 },
+  { "_id": 5, "Name": "XYZ", "Age": 15 },
+  { "_id": 6, "Name": "ABC", "Age": 8 }
+]);
+
+1)without creating index 
+ans:db.tdata.find({ Age: { $gt: 12 } }).explain("executionStats");
+2) Create a single field index on the age field (Ascending order)
+db.tdata.createIndex({ Age: 1 });
+3) List all indexes created on the tdata collection
+db.tdata.getIndexes();
+4)Drop a specific index by its name
+db.tdata.dropIndex("Age_1");
+OR
+4)Alternative: Drop ALL custom indexes on the collection at once (except _id)
+db.tdata.dropIndexes();
+
+defination1:display student with name ABC and age 15 
+ans:db.tdata.find({ Name: "ABC", Age: 15 }).explain("executionStats");
+or-->db.tdata.find({ Name: "ABC", Age: 15 })
+
+defination2:display student whos age is gt than12
+ans:db.tdata.find({ Age: { $gt: 12 } });
+or -->db.tdata.find({ Age: { $gt: 12 } }).explain("executionStats");
+
+defination3:display student whos name ABC
+ans:db.tdata.find({ Name: "ABC" }).explain("executionStats");
+
+5)db.tdata.createIndex({age:1},{partialFilterExpression:{age:{$gt:13}}}) 
+
+db.tdata.find({ Age: 10 }).explain("executionStats");
+or-->db.tdata.find({ Age: 15 }).explain("executionStats");
+
+Example:
+Consider a collection student having documents like this:
+[
+{_id:123433,name: "DDD",age:32},
+{_id:123434,name: "BBB",age:20},
+{_id:123435,name: "AAA",age:10},
+]
+ans:
+db.createCollection("EX31");
+
+db.EX31.insertMany([
+  { "_id": 123433, "name": "DDD", "age": 32 },
+  { "_id": 123434, "name": "BBB", "age": 20 },
+  { "_id": 123435, "name": "AAA", "age": 10 }
+]);
+
+Do as directed:
+(1) Create an index & fire a command to retrieve a document having age>15 and name is
+"BBB". Stats must return values nReturned=1, docExamined=1, stage="IXSCAN". Perform required indexing.
+ans:// Step 1: Create a Compound Index on name and age to optimize both fields together
+db.EX31.createIndex({ name: 1, age: 1 });
+
+// Step 2: Fire the command with explain() to verify the execution stats
+db.EX31.find({ name: "BBB", age: { $gt: 15 } }).explain("executionStats");
+
+(2) Create an index on subset of a collection having age>30. Also write a command to get a stats "IXSCAN" for age>30.
+ans:
+// Step 1: Create a Partial Index filtering only the subset where age > 30
+db.EX31.createIndex(
+  { age: 1 },
+  { partialFilterExpression: { age: { $gt: 30 } } }
+);
+
+// Step 2: Fire the command to retrieve documents and check stats for age > 30
+db.EX31.find({ age: { $gt: 30 } }).explain("executionStats");
+
+
+
