@@ -1,0 +1,92 @@
+const movies = [
+            {
+                title: "Jawan",
+                director: "Atlee",
+                genre: "Action",
+                rating: 8.7,
+                releaseyear: 2023,
+                language: "Hindi",
+                active: true
+            },
+            {
+                title: "3 Idiots",
+                director: "Rajkumar Hirani",
+                genre: "Drama",
+                rating: 9.2,
+                releaseyear: 2009,
+                language: "Hindi",
+                active: true
+            },
+            {
+                title: "KGF",
+                director: "Prashanth Neel",
+                genre: "Action",
+                rating: 8.8,
+                releaseyear: 2018,
+                language: "Kannada",
+                active: true
+            },
+            {
+                title: "RRR",
+                director: "S. S. Rajamouli",
+                genre: "Action",
+                rating: 9.0,
+                releaseyear: 2022,
+                language: "Telugu",
+                active: true
+            },
+            {
+                title: "Drishyam",
+                director: "Nishikant Kamat",
+                genre: "Thriller",
+                rating: 8.6,
+                releaseyear: 2015,
+                language: "Hindi",
+                active: true
+            },
+            {
+                title: "Dangal",
+                director: "Nitesh Tiwari",
+                genre: "Drama",
+                rating: 8.9,
+                releaseyear: 2016,
+                language: "Hindi",
+                active: true
+            },
+            {
+                title: "Bahubali",
+                director: "S. S. Rajamouli",
+                genre: "Action",
+                rating: 8.5,
+                releaseyear: 2015,
+                language: "Telugu",
+                active: true
+            },
+            {
+                title: "Pushpa",
+                director: "Sukumar",
+                genre: "Action",
+                rating: 8.4,
+                releaseyear: 2021,
+                language: "Telugu",
+                active: true
+            },
+            {
+                title: "Shershaah",
+                director: "Vishnuvardhan",
+                genre: "Drama",
+                rating: 8.3,
+                releaseyear: 2021,
+                language: "Hindi",
+                active: true
+            },
+            {
+                title: "Zindagi Na Milegi Dobara",
+                director: "Zoya Akhtar",
+                genre: "Drama",
+                rating: 8.8,
+                releaseyear: 2011,
+                language: "Hindi",
+                active: true
+            }
+        ];
